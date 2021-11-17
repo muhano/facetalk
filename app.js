@@ -20,7 +20,7 @@ app.post('/editpost') //geri
 app.get('/deletepost') //geri
 
 app.get('/profile/:id')
-app.get('/editProfile')
+app.get('/editProfile') 
 app.post('/editProfile')
 // app.get('/addTags')
 // app.post('/addTags')
