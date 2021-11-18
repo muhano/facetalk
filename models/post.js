@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
      */
 
     static postedTime (date) {
-      return moment(date).startOf('hour').fromNow();      
+      return moment(date).startOf('minute').fromNow();      
     }
 
     static associate(models) {
@@ -35,7 +35,7 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     imgUrl: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
     },
     UserId: DataTypes.INTEGER,
     TagId: {

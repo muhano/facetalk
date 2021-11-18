@@ -1,23 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <%-include("partials/login/loginNavbar")%>
+<%- include('partials/header', {title: "Home Page"}) %> 
+<style>
+    .form {
+        display: flex;
+        flex-direction: column ;
+        justify-content: center;
+        align-items: center;
+        margin: 30px;
+        padding: 20px;
+    }
+</style>
+
 </head>
 <body>
-  <%-include("partials/login/bodyNavbar")%>
-  <form method="post" action="/register">
-    <label for="fname">Username</label><br>
-    <input type="text" id="fname" name="username" value=""><br>
-    <label for="lname">Password</label><br>
-    <input type="password" id="lname" name="password" value=""><br>
-    <label for="lname">Email</label><br>
-    <input type="email" id="lname" name="email" value=""><br><br>
-    <button>Submit</button>
-  </form>
+  <%-include("partials/navbars/guest.ejs")%>
+  <div class="form">
+    <h1>Register</h1>
+    <form method="post" action="/register">
+      <label for="fname">Username</label><br>
+      <input type="text" id="fname" name="username" value=""><br>
+      <label for="lname">Password</label><br>
+      <input type="password" id="lname" name="password" value=""><br>
+      <label for="lname">Email</label><br>
+      <input type="email" id="lname" name="email" value=""><br><br>
+      <button>Submit</button>
+    </form>
+  </div>
+  
   <%if (newErrors) {%>
     <%newErrors.forEach(el => {%>
       <P>

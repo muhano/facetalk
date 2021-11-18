@@ -1,24 +1,26 @@
 const { Post, Profile, Tag, User } = require('../models/index')
 
-class Controller{
-    static addPostForm(req, res){
-        Tag.findAll()
-            .then(data=> {
-                res.render('addPostForm', {data})
-            })
-            .catch(err=> res.send(err))
-        
-    }
-    static addPost(req, res){
-        const {userId} = req.session
-        let {title, content, imgUrl, TagId} = req.body
-        let newPost = {title, content, imgUrl, TagId, UserId: userId}
-        Post.create(newPost)
-            .then(data=> {
-                res.redirect('/home')
-            })
-            .catch(err=> res.send(err.message))
-    }
+class Controller {
+	static addPostForm(req, res) {
+		Tag.findAll()
+			.then(data => {
+				res.render('addPostForm', { data })
+			})
+			.catch(err => res.send(err))
+
+	}
+	static addPost(req, res) {
+		const { userId } = req.session
+		let { title, content, imgUrl, TagId } = req.body
+		let newPost = { title, content, imgUrl, TagId, UserId: userId }
+
+		Post.create(newPost)
+			.then(data => {
+				res.redirect('/home')
+			})
+			.catch(err => res.send(err.message))
+	}
+
 
 	static editPostForm(req, res) {
 		let tagList;
@@ -64,28 +66,6 @@ class Controller{
     }
 
 
-	static editProfileForm(req, res) {
-		Profile.findByPk(req.params.profileId)
-			.then(data => {
-				// console.log(data);
-				res.render('editProfileForm', { data })
-			})
-			.catch(err => res.send(err))
-	}
-
-	static editProfile(req, res) {
-		// console.log(req.params.profileId);
-		// console.log(req.body);
-		Profile.update(req.body, {
-			where: {
-				id: req.params.profileId
-			}
-		})
-			.then(data => {
-				res.redirect('/home')
-			})
-			.catch(err => res.send(err))
-	}
 }
 
 module.exports = Controller
