@@ -20,15 +20,19 @@ app.use(
 
 app.use('/', router) //christin
 
+app.get('/profile/') //christin
+app.get('/editProfile') //geri
+app.post('/editProfile') //geri
 
-
-app.get('/profile/:id')
-app.get('/editProfile') 
-app.post('/editProfile')
-// app.get('/addTags')
-// app.post('/addTags')
-// app.get('/deleteTags')
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
 })
+
+
+//search di home //christin
+//mvp
+//heroku
+//static method
+//getter method//geri //di profile ada gender
+//logout /christin
