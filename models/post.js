@@ -16,7 +16,6 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   Post.init({
-    id: DataTypes.STRING,
     title: DataTypes.STRING,
     content: DataTypes.STRING,
     imgUrl: DataTypes.STRING,
