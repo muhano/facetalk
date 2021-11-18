@@ -25,10 +25,7 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty : {
           msg : `Username is empty`
         },
-      //   unique: {
-      //     args : true,
-      //     msg: 'Username already in use!'
-      // }
+    
       } 
     },
     password: {
