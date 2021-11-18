@@ -16,9 +16,9 @@ module.exports = (sequelize, DataTypes) => {
 
     get userTitle(){
       if (this.gender === 'male'){
-        return 'Mr'
+        return 'Mr. '+this.name
       } else if (this.gender === 'female'){
-        return 'Ms'
+        return 'Ms. '+this.name
       }
     }
   };

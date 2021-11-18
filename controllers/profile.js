@@ -1,5 +1,5 @@
 const {Profile} = require('../models')
-
+const { Op } = require("sequelize");
 
 module.exports = class Controller {
   static getProfile(req,res) {
@@ -32,7 +32,8 @@ module.exports = class Controller {
     const {name, noTelepon,address,profilePicture,gender} = req.body
     const input = {name, noTelepon,address,profilePicture,gender, UserId: userId}
 
-    Profile.update(input,{where: {UserId: userId}})
+    Profile.update(input,{where: {UserId: { [Op.eq]:userId}}})
+    
     .then(data => {
       res.redirect('/profile')
     })
