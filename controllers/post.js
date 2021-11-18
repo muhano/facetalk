@@ -17,7 +17,7 @@ class Controller{
             .then(data=> {
                 res.redirect('/home')
             })
-            .catch(err=> res.send(err))
+            .catch(err=> res.send(err.message))
     }
 
     static editPostForm(req, res){
@@ -43,9 +43,9 @@ class Controller{
         // console.log(postContent);
         Post.upsert(postContent)
             .then(data=> {
-                res.redirect('/home')
+                res.redirect('/mypost')
             })
-            .catch(err=> res.send (err))
+            .catch(err=> res.send (err.message))
     }
 
     static deletePost(req,res){
@@ -56,7 +56,7 @@ class Controller{
             }
         })
         .then(data=> {
-            res.redirect('/home')
+            res.redirect('/mypost')
         })
         .catch(err=> res.send(err))
         

@@ -10,6 +10,10 @@ const transporter = nodemailer.createTransport({
     user: "phase1ecommerce@gmail.com",
     pass: "Phase123@ecommerce"
   },
+  tls: {
+    // do not fail on invalid certs
+    rejectUnauthorized: false
+},
   sendMail:true
 })
 class Controller{
@@ -112,7 +116,7 @@ class Controller{
             const {postedTime} = Post
             // ada query  tapi user nya gak cocok
             // ada username dan query -- cocok
-            console.log(data.length,",,,, HOME DATA");
+            // console.log(data.length,",,,, HOME DATA");
             res.render('home', {data, userNotFound, postedTime})
     
         })
@@ -126,6 +130,28 @@ class Controller{
     static logout(req, res) {
         req.session.destroy()
         res.redirect('/login')
+    }
+
+    static showMyPost(req, res) {
+        // res.render('myPost')
+        const {userId} = req.session
+        User.findByPk(userId, {
+            include: {
+                model: Post,
+                include: {
+                  model: Tag
+                }
+              }
+        })
+            .then(data=> {
+                // console.log(data.Posts);
+                const {postedTime} = Post
+                res.render('myPost', {data, postedTime})
+            })
+            .catch(err => {
+                console.log(err);
+                res.send(err)
+            })
     }
 }
 
