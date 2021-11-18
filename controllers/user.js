@@ -44,10 +44,10 @@ class Controller{
             })
         })
         .then(info => {
-            res.redirect('/login')
+            res.redirect('/')
         })
         .catch (err => {
-            if (err.name === "SequelizeValidationError") {
+            if (err.name === "SequelizeValidationError" || err.name === "SequelizeUniqueConstraintError") {
                 const errors = err.errors.map(el => {
                 return el.message
                 })
