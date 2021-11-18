@@ -1,11 +1,12 @@
-const router = require ('express').Router()
-const controller= require ('../controllers/home')
+const { landingPage, addRegister, postRegister, getLogin, postLogin, home } = require('../controllers/user')
 
-router.get('/',controller.home) //christin
-router.get('/register', controller.addRegister) //christin
-router.post('/register',controller.postRegister) //christin
-router.get('/login', controller.getLogin) //christin
-router.post('/login', controller.postLogin) //christin
-router.get('/home') //christin
+const router = require ('express').Router()
+
+router.get('/', landingPage) 
+router.get('/register', addRegister) 
+router.post('/register',postRegister) 
+router.get('/login', getLogin) 
+router.post('/login', postLogin) 
+router.get('/home', home) 
 
 module.exports = router

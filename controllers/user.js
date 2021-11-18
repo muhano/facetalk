@@ -1,9 +1,9 @@
 const  {User} = require ("../models")
-const bcrypt = require ("../helpers/bcrypt")
+const {compareHash} = require ("../helpers/bcrypt")
 
 class Controller{
-    static home(req,res){
-        res.render ("home")
+    static landingPage(req,res){
+        res.render ("landingPage")
     }
 
     static addRegister (req,res) {
@@ -42,19 +42,34 @@ class Controller{
         User.findOne ( {where : {username}})
         .then(user =>{
             if (user) {
-                const isValidPassword = bcrypt.compareHash(password,user.password)
+                const isValidPassword = compareHash(password,user.password)
                 if (isValidPassword) {
-                    return res.redirect ("/home")
+                    req.session.userId = user.id
+                    res.redirect ("/home")
                 } else {
-                    const error = "Invalid username/password"
-                    res.send ("Wrong Email or Password")
+                res.send ('Wrong password / username')
                 }
             } else {
-                res.send ("User not Found")
+                res.send ('user not found')
+
             }
         })
         .catch (err=> {
-            res.send(err)
+            if (error.name === "SequelizeValidationError") {
+                const errors = error.errors.map(el => {
+                return el.message
+                })
+                res.redirect (`/register?errors=${errors}`)
+            } else {
+                res.send(error)
+            }
+        })
+    }
+
+    static home (req,res) {
+        user.findAll ()
+        .then (data => {
+            res.render ("home", {data})
         })
     }
 }
