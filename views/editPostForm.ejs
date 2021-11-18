@@ -1,23 +1,36 @@
 <!DOCTYPE html>
-<%- include('partials/header', {title: "Edit Post"}) %> 
+<%- include('partials/header', {title: "Home Page"}) %> 
+<style>
+    .form {
+        display: flex;
+        flex-direction: column ;
+        justify-content: center;
+        align-items: center;
+        margin: 20px;
+    }
+</style>
+
+
 </head>
 <body>
-    <%-include("partials/navbars/user.ejs")%>
+  <%-include("partials/navbars/user.ejs")%>
+  <div class="form">
     <h1>Edit Post</h1>
 
     <form action="/post/editpost/<%=data.id%>" method="post">
-        <input type="text" name='title' placeholder="input your post title here" value="<%= data.title %>">
-        <label>Edit Title</label><br><br>
+        <label>Edit Title</label><br>
+        <input type="text" name='title' placeholder="input your post title here" value="<%= data.title %>"><br><br>
         <textarea name="content" cols="30" rows="10" placeholder="insert your post text here..."><%= data.content %></textarea><br><br>
         <label>Insert image for your post :</label><br>
         <input type="text" name='imgUrl' value="<%= data.imgUrl %>"><br><br>
         <select name="TagId" id="">
-            <option value="">choose your post tag</option>
+
             <% tagList.forEach(el=> { %>
                 <option value="<%= el.id %>" <%= el.id === data.TagId ? 'selected' : '' %> ><%= el.name %></option>
             <% })%>
         </select><br><br>
         <input type="Submit">
     </form>
+</div>
 </body>
 </html>

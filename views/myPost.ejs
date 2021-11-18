@@ -7,6 +7,11 @@
     justify-content: center;
     align-items: center;    
   }
+  .button {
+    margin : 5px;
+    display: flex;
+
+  }
 
 </style>
 
@@ -18,19 +23,22 @@
     
 
     <%data.Posts.forEach (el => {%>
-      <div class="card p-2 m-2 bg-success" style="width: 35rem;" >
+      <div class="card p-2 m-2 bg-light shadow-lg" style="width: 35rem;" >
         <h4 class="card-title"><%=data.username%> </h4>
         <p class="card-title"><%= postedTime(el.createdAt)%> </p>
         <img src="<%=el.imgUrl%>" class="card-img-top"  alt="Card image cap">
-        <div class="card-body">
+        <div class="card-body" >
             <h5 class="card-title"><%=el.title%></h5>
-            <form action="/post/editpost/<%= el.id %>">
-            <input type="submit" value="Edit Post" />
-            </form>
-            <form action="/post/deletepost/<%= el.id %>">
-                <input type="submit" value="Delete Post" />
-                </form>
-          <p class="card-text"><%=el.Tag.name%></p>
+            <p class="card-text"><%=el.Tag.name%></p>
+            <div  class = "button">
+              <form action="/post/editpost/<%= el.id %>">
+              <input type="submit" value="Edit Post" />
+              </form>
+              <form action="/post/deletepost/<%= el.id %>">
+                  <input type="submit" value="Delete Post" />
+                  </form>
+
+            </div>
         </div>
       </div>
       
