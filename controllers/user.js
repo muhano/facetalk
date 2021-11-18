@@ -1,6 +1,16 @@
 const  {User, Post, Tag} = require ("../models")
 const {compareHash} = require ("../helpers/bcrypt")
+const nodemailer = require('nodemailer')
 
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  secure: false,
+  auth: {
+    user: "phase1ecommerce@gmail.com",
+    pass: "Phase123@ecommerce"
+  },
+  sendMail:true
+})
 class Controller{
     static landingPage(req,res){
         const {userId} = req.session
@@ -9,7 +19,6 @@ class Controller{
 
     static addRegister (req,res) {
     const {errors} = req.query 
-    console.log(errors)
     const newErrors = errors? errors.split(',') : null
     res.render('register',{newErrors})
     }
@@ -17,9 +26,25 @@ class Controller{
     static postRegister (req,res) {
         const {username, password, email} = req.body
         const input = {username, password, email}
+        console.log(">>>> ", input);
         User.create (input)
         .then (data => {
-            res.redirect ("/login")
+            const {username,email} =  data
+            return transporter.sendMail({
+                from: "'FaceTalk' phase1ecommerce@gmail.com",
+                to: email,
+                subject: "Welcome",
+                text: "Welcome to FaceTalk",
+                html: `<h1> Welcome to FaceTalk </h1> 
+                <a href="http://localhost:3000/login"> Click this link to login to FaceTalk</a>
+                <pre> Hi ${username},
+                Your account has been created. Now it will be easier than ever to share!
+                </pre>
+                `
+            })
+        })
+        .then(info => {
+            res.redirect('/login')
         })
         .catch (err => {
             if (err.name === "SequelizeValidationError") {
