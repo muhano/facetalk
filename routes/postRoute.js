@@ -8,4 +8,7 @@ router.get('/editpost/:postId', Controller.editPostForm) //geri
 router.post('/editpost/:postId', Controller.editPost) //geri
 router.get('/deletepost/:postId', Controller.deletePost ) //geri
 
+router.get('/editProfile/:profileId', Controller.editProfileForm)
+router.post('/editProfile/:profileId', Controller.editProfile)
+
 module.exports = router
