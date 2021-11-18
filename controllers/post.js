@@ -56,7 +56,34 @@ class Controller{
                 id : req.params.postId
             }
         })
-        res.redirect('/home')
+        .then(data=> {
+            res.redirect('/home')
+        })
+        .catch(err=> res.send(err))
+        
+    }
+
+    static editProfileForm(req, res) {
+        Profile.findByPk(req.params.profileId)
+            .then(data=> {
+                // console.log(data);
+                res.render('editProfileForm', {data})
+            })
+            .catch(err=> res.send(err))
+    }
+
+    static editProfile(req, res) {
+        // console.log(req.params.profileId);
+        // console.log(req.body);
+        Profile.update(req.body, {
+            where: {
+                id: req.params.profileId
+            }
+        })
+        .then(data=> {
+            res.redirect('/home')
+        })
+        .catch(err=> res.send(err))
     }
 }
 
