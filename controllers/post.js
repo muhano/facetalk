@@ -10,8 +10,9 @@ class Controller{
         
     }
     static addPost(req, res){
+        const {userId} = req.session
         let {title, content, imgUrl, TagId} = req.body
-        let newPost = {title, content, imgUrl, TagId}
+        let newPost = {title, content, imgUrl, TagId, UserId: userId}
         console.log(newPost);
         Post.create(newPost)
             .then(data=> {
