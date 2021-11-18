@@ -11,7 +11,11 @@ const transporter = nodemailer.createTransport({
     user: "phase1ecommerce@gmail.com",
     pass: "Phase123@ecommerce"
   },
-  sendMail: true
+  tls: {
+    // do not fail on invalid certs
+    rejectUnauthorized: false
+},
+  sendMail:true
 })
 class Controller {
   static landingPage(req, res) {
@@ -119,10 +123,32 @@ class Controller {
       })
   }
 
-  static logout(req, res) {
-    req.session.destroy()
-    res.redirect('/login')
-  }
+    static logout(req, res) {
+        req.session.destroy()
+        res.redirect('/login')
+    }
+
+    static showMyPost(req, res) {
+        // res.render('myPost')
+        const {userId} = req.session
+        User.findByPk(userId, {
+            include: {
+                model: Post,
+                include: {
+                  model: Tag
+                }
+              }
+        })
+            .then(data=> {
+                // console.log(data.Posts);
+                const {postedTime} = Post
+                res.render('myPost', {data, postedTime})
+            })
+            .catch(err => {
+                console.log(err);
+                res.send(err)
+            })
+    }
 }
 
 module.exports = Controller
