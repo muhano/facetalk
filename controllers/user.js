@@ -7,9 +7,10 @@ class Controller{
     }
 
     static addRegister (req,res) {
-        const {errors} = req.query 
+    const {errors} = req.query 
+    console.log(errors)
     const newErrors = errors? errors.split(',') : null
-    res.render('register',{errors: newErrors})
+    res.render('register',{newErrors})
     }
 
     static postRegister (req,res) {
@@ -20,13 +21,13 @@ class Controller{
             res.redirect ("/login")
         })
         .catch (err => {
-            if (error.name === "SequelizeValidationError") {
-                const errors = error.errors.map(el => {
+            if (err.name === "SequelizeValidationError") {
+                const errors = err.errors.map(el => {
                 return el.message
                 })
                 res.redirect (`/register?errors=${errors}`)
             } else {
-                res.send(error)
+                res.send(err)
             }
         })
     }
@@ -34,7 +35,7 @@ class Controller{
     static getLogin (req,res) {
     const {errors} = req.query 
     const newErrors = errors? errors.split(',') : null
-    res.render('login',{errors: newErrors})
+    res.render('login',{newErrors})
     }
 
     static postLogin (req,res) {
@@ -47,15 +48,16 @@ class Controller{
                     req.session.userId = user.id
                     res.redirect ("/home")
                 } else {
-                res.send ('Wrong password / username')
+                const errors='Wrong password / username'
+                res.redirect (`/login?errors=${errors}`)
                 }
             } else {
-                res.send ('user not found')
-
+                const errors='User not found'
+                res.redirect (`/login?errors=${errors}`)
             }
         })
         .catch (err=> {
-            if (error.name === "SequelizeValidationError") {
+            if (err.name === "SequelizeValidationError") {
                 const errors = error.errors.map(el => {
                 return el.message
                 })
@@ -67,7 +69,7 @@ class Controller{
     }
 
     static home (req,res) {
-        user.findAll ()
+        User.findAll ()
         .then (data => {
             res.render ("home", {data})
         })
