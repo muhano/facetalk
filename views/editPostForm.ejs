@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Edit Post</h1>
+
+    <form action="/editpost/<%=data.id%>" method="post">
+        <input type="text" name='title' placeholder="input your post title here" value="<%= data.title %>">
+        <label>Edit Title</label><br><br>
+        <textarea name="content" cols="30" rows="10" placeholder="insert your post text here..."><%= data.content %></textarea><br><br>
+        <label>Insert image for your post :</label><br>
+        <input type="text" name='imgUrl' value="<%= data.imgUrl %>"><br><br>
+        <select name="TagId" id="">
+            <option value="">choose your post tag</option>
+            <% tagList.forEach(el=> { %>
+                <option value="<%= el.id %>" <%= el.id === data.TagId ? 'selected' : '' %> ><%= el.name %></option>
+            <% })%>
+        </select><br><br>
+        <input type="Submit">
+    </form>
+</body>
+</html>

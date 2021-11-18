@@ -16,13 +16,34 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   Post.init({
-    id: DataTypes.STRING,
-    title: DataTypes.STRING,
-    content: DataTypes.STRING,
-    imgUrl: DataTypes.STRING,
+    title: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: {msg: "Post title must not be empty"}
+      }
+    },
+    content: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: {msg: "Content must not be empty"}
+      }
+    },
+    imgUrl: {
+      type: DataTypes.STRING
+    },
     UserId: DataTypes.INTEGER,
-    TagId: DataTypes.INTEGER
+    TagId: {
+      type: DataTypes.INTEGER,
+      validate: {
+        notEmpty: {msg: "Please select post tag"}
+      }
+    }
   }, {
+    // hooks: {
+    //   beforeCreate: (instance, options) => {
+
+    //   }
+    // },
     sequelize,
     modelName: 'Post',
   });
