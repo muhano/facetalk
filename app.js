@@ -21,8 +21,8 @@ app.use(
 app.use('/', router) //christin
 
 app.get('/profile/') //christin
-app.get('/editProfile') //geri
-app.post('/editProfile') //geri
+// app.get('/editProfile') //geri//selesai
+// app.post('/editProfile') //geri//selesai
 
 
 app.listen(port, () => {
@@ -34,5 +34,5 @@ app.listen(port, () => {
 //mvp
 //heroku
 //static method
-//getter method//geri //di profile ada gender
+//getter method//geri //di profile ada gender//selesai
 //logout /christin

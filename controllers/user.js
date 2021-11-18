@@ -1,5 +1,6 @@
 const  {User, Post, Tag} = require ("../models")
 const {compareHash} = require ("../helpers/bcrypt")
+const validator = require('validator')
 
 class Controller{
     static landingPage(req,res){
@@ -15,8 +16,9 @@ class Controller{
     }
 
     static postRegister (req,res) {
-        const {username, password, email} = req.body
-        const input = {username, password, email}
+        let {username, password, email} = req.body
+        email = validator.normalizeEmail(email)
+        const input = {username, password,  email}
         User.create (input)
         .then (data => {
             res.redirect ("/login")

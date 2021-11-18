@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- <img src="https://cdns.klimg.com/merdeka.com/i/w/news/2021/01/08/1261129/540x270/9-jenis-makanan-berbahaya-untuk-anjing-salah-satunya-daging-mentah.jpg" alt="Girl in a jacket" width="500" height="600"> -->
+    <h1>Edit Profile</h1>
+    <form action="/post/editProfile/<%=data.id%>" method="post">
+        <input type="text" name='name' value="<%= data.name %>">
+        <label>Your Name</label><br><br>
+
+        <label>Your Gender</label><br>
+        <input type="radio"  name="gender" value="male" <%= "male" === data.gender ? 'checked' : '' %>>
+        <label >Male</label><br>
+        <input type="radio"  name="gender" value="female" <%= "female" === data.gender ? 'checked' : '' %>>
+        <label >Female</label><br><br>
+
+        <label>Phone Number:</label><br>
+        <input type="text" name="noTelepon" value="<%= data.noTelepon %>"><br><br>
+        <label>Your address:</label><br>
+        <textarea name="" id="" cols="30" rows="10"><%= data.address %></textarea><br><br>
+        <label>Profile picture URL link:</label><br>
+        <input type="text" name="profilePicture" value="<%= data.profilePicture %>"><br><br>
+        <input type="submit" value="Submit Change">
+    </form>
+    
+</body>
+</html>

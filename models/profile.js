@@ -13,13 +13,22 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Profile.belongsTo(models.User, {foreignKey: 'UserId'})
     }
+
+    get userTitle(){
+      if (this.gender === 'male'){
+        return 'Mr'
+      } else if (this.gender === 'female'){
+        return 'Ms'
+      }
+    }
   };
   Profile.init({
     name: DataTypes.STRING,
     noTelepon: DataTypes.STRING,
     address: DataTypes.STRING,
     profilePicture: DataTypes.STRING,
-    UserId: DataTypes.INTEGER
+    UserId: DataTypes.INTEGER,
+    gender: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Profile',
