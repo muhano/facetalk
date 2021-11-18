@@ -14,7 +14,6 @@ app.use(
     secret: 'session-coder',
     resave: false,
     saveUninitialized: true,
-
   })
 )
 

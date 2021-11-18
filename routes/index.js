@@ -1,16 +1,14 @@
-const { landingPage, addRegister, postRegister, getLogin, postLogin, home, logout } = require('../controllers/user')
+const { landingPage, home } = require('../controllers/user')
+const authentication = require('../middlewares/authentication')
 const post = require('./postRoute')
 const router = require ('express').Router()
+const user = require('./user')
 
-router.use('/post', post)
 
 router.get('/', landingPage) 
-router.get('/register', addRegister) 
-router.post('/register',postRegister) 
-router.get('/login', getLogin) 
-router.post('/login', postLogin) 
+router.use('/',user)
+router.use(authentication)
 router.get('/home', home) 
-router.get('/logout', logout) 
-
+router.use('/post', post)
 
 module.exports = router

@@ -84,10 +84,11 @@ class Controller{
             })
         })
         .then (data => {
+            const {postedTime} = Post
             // ada query  tapi user nya gak cocok
             // ada username dan query -- cocok
             console.log(data.length,",,,, HOME DATA");
-            res.render('home', {data, userNotFound})
+            res.render('home', {data, userNotFound, postedTime})
     
         })
         .catch(error => {
