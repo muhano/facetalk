@@ -1,4 +1,4 @@
-const { User, Post, Tag } = require("../models")
+const { User, Post, Tag , Profile} = require("../models")
 const { compareHash } = require("../helpers/bcrypt")
 const nodemailer = require('nodemailer')
 const validator = require('validator')
@@ -30,7 +30,18 @@ class Controller {
     const input = { username, password, email: validator.normalizeEmail(email) }
     User.create(input)
       .then(data => {
-        const { username, email } = data
+        const { username, email ,id } = data
+        const profileInput = {
+          UserId: id,
+          profilePicture: 'https://www.nicepng.com/png/detail/73-730154_open-default-profile-picture-png.png',
+          gender: '-',
+          address: '-',
+          noTelepon: '-',
+          name:  username
+        }
+        return Profile.create(profileInput)
+      })
+      .then(data => {
         return transporter.sendMail({
           from: "'FaceTalk' phase1ecommerce@gmail.com",
           to: email,
@@ -48,6 +59,7 @@ class Controller {
         res.redirect('/')
       })
       .catch(err => {
+        console.log(err,"<<< eror");
         if (err.name === "SequelizeValidationError" || err.name === "SequelizeUniqueConstraintError") {
           const errors = err.errors.map(el => {
             return el.message
@@ -66,8 +78,8 @@ class Controller {
   }
 
   static postLogin(req, res) {
-    const { username, password } = req.body
-    User.findOne({ where: { username } })
+    const { email, password } = req.body
+    User.findOne({ where: { email } })
       .then(user => {
         if (user) {
           const isValidPassword = compareHash(password, user.password)
@@ -75,7 +87,7 @@ class Controller {
             req.session.userId = user.id
             res.redirect("/home")
           } else {
-            const errors = 'Wrong password / username'
+            const errors = 'Wrong password / email'
             res.redirect(`/login?errors=${errors}`)
           }
         } else {
@@ -105,8 +117,9 @@ class Controller {
         userNotFound = (!user && username) && `${username} not Found`
         const where = user ? { UserId: user.id } : null
         return Post.findAll({
-          include: { all: true, nested: true },
-          where
+          include: { all: true, nested: true},
+          where,
+          order: [['createdAt','DESC']]
         })
       })
       .then(data => {

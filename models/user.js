@@ -15,8 +15,8 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       User.hasOne(models.Profile,{foreignKey: 'UserId'}),
       User.hasMany(models.Post,{foreignKey: 'UserId'})
-
     }
+
   };
   User.init({
     username: {
@@ -34,6 +34,10 @@ module.exports = (sequelize, DataTypes) => {
       notEmpty : {
         msg : `password is empty`
       },
+      len: {
+        args: [6],
+        msg: 'Minimum password length is 6 characters'
+      }
     }
     },
     email: {
@@ -44,7 +48,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       isEmail : {
         msg : `Input valid email`
-      },
+      }
     }
     },
   }, {

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<%- include('partials/header', {title: "Home Page"}) %> 
+<style>
+  .profile {
+    display: flex;
+    height: 80vh;
+    justify-content: center;
+    align-items: center;    
+  }
+
+</style>
+
+</head>
+<body>
+  <%-include("partials/navbars/user")%>
+  <div class="profile">
+    <div class="card mb-3" style="max-width: 1000px;">
+      <div class="row g-0">
+        <div class="col-md-4">
+          <img src="<%= data.profilePicture%>" class="img-fluid rounded-start" alt="...">
+        </div>
+        <div class="col-md-8">
+          <div class="card-body p-4">
+            <h5 class="card-title"><%= data.name%></h5>
+            <p class="card-text">gender: <%= data.gender%></p>
+            <p class="card-text">Phone Number: <%= data.noTelepon%></p>
+            <p class="card-text">Address: <%= data.address%></p>
+            <button class="btn btn-warning float-end mr-2" onclick="location.href='/profile/edit'">Edit Profile</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+
+</body>
+</html>

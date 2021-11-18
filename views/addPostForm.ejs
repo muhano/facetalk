@@ -1,23 +1,35 @@
 <!DOCTYPE html>
 <%- include('partials/header', {title: "Home Page"}) %> 
+<style>
+    .form {
+        display: flex;
+        flex-direction: column ;
+        justify-content: center;
+        align-items: center;
+        margin: 20px;
+    }
+</style>
 
 </head>
 <body>
   <%-include("partials/navbars/user.ejs")%>
-    <h1>Adding Post</h1>
+  
+  <div class="form">
+        <h1>Create Post</h1>
 
-    <form action="/post/addpost" method="post">
-        <input type="text" name='title' placeholder="input your post title here"><br><br>
-        <textarea name="content" cols="30" rows="10" placeholder="insert your post text here..."></textarea><br><br>
-        <label>Insert image for your post :</label><br>
-        <input type="text" name='imgUrl'><br><br>
-        <select name="TagId" id="">
-            <option value="" selected disabled>choose your post tag</option>
-            <% data.forEach(el=> { %>
-                <option value="<%= el.id %>"><%= el.name %></option>
-            <% })%>
-        </select><br><br>
-        <input type="Submit">
-    </form>
+        <form action="/post/addpost" method="post">
+            <input type="text" name='title' placeholder="input your post title here"><br><br>
+            <textarea name="content" cols="30" rows="10" placeholder="insert your post text here..."></textarea><br><br>
+            <label>Insert image for your post :</label><br>
+            <input type="text" name='imgUrl'><br><br>
+            <select name="TagId" id="">
+                <option value="" selected disabled>choose your post tag</option>
+                <% data.forEach(el=> { %>
+                    <option value="<%= el.id %>"><%= el.name %></option>
+                <% })%>
+            </select><br><br>
+            <input type="Submit">
+        </form>
+    </div>
 </body>
 </html>
