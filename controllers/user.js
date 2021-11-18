@@ -1,9 +1,10 @@
-const  {User} = require ("../models")
+const  {User, Post, Tag} = require ("../models")
 const {compareHash} = require ("../helpers/bcrypt")
 
 class Controller{
     static landingPage(req,res){
-        res.render ("landingPage")
+        const {userId} = req.session
+        res.render ("landingPage", {userId})
     }
 
     static addRegister (req,res) {
@@ -69,10 +70,36 @@ class Controller{
     }
 
     static home (req,res) {
-        User.findAll ()
-        .then (data => {
-            res.render ("home", {data})
+        const {username} = req.query
+        let data =""
+        const where = username? {username} : {username: null}
+        let userNotFound = false
+        User.findOne ({where})
+        .then(user => {
+            userNotFound = (!user && username) &&`${username} not Found`
+            const where = user ? {UserId: user.id} : null
+            return Post.findAll({
+                include: {all: true, nested: true},
+                where
+            })
         })
+        .then (data => {
+            // ada query  tapi user nya gak cocok
+            // ada username dan query -- cocok
+            console.log(data.length,",,,, HOME DATA");
+            res.render('home', {data, userNotFound})
+    
+        })
+        .catch(error => {
+            console.log(error);
+            res.send(error)
+        }) 
+        
+    }
+
+    static logout(req, res) {
+        req.session.destroy()
+        res.redirect('/login')
     }
 }
 

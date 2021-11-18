@@ -5,8 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Adding Post</title>
+    <%-include("partials/headNavbar")%>
 </head>
 <body>
+  <%-include("partials/bodyNavbar")%>
     <h1>Adding Post</h1>
 
     <form action="/post/addpost" method="post">
@@ -15,7 +17,7 @@
         <label>Insert image for your post :</label><br>
         <input type="text" name='imgUrl'><br><br>
         <select name="TagId" id="">
-            <option value="">choose your post tag</option>
+            <option value="" selected disabled>choose your post tag</option>
             <% data.forEach(el=> { %>
                 <option value="<%= el.id %>"><%= el.name %></option>
             <% })%>

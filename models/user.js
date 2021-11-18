@@ -22,10 +22,14 @@ module.exports = (sequelize, DataTypes) => {
     username: {
       type : DataTypes.STRING,
       validate : {
-      notEmpty : {
-        msg : `Username is empty`
-      },
-    }
+        notEmpty : {
+          msg : `Username is empty`
+        },
+        unique: {
+          args: true,
+          msg: 'Username already in use!'
+      }
+      } 
     },
     password: {
       type : DataTypes.STRING, 
