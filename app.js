@@ -36,3 +36,7 @@ app.listen(port, () => {
 //static method
 //getter method//geri //di profile ada gender//selesai
 //logout /christin
+
+
+//tambah tombol buat post di navbar user.ejs
+//bikin post user dari situ ada tombol delete dan edit
