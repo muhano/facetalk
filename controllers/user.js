@@ -1,6 +1,7 @@
 const  {User, Post, Tag} = require ("../models")
 const {compareHash} = require ("../helpers/bcrypt")
 const nodemailer = require('nodemailer')
+const validator = require('validator')
 
 const transporter = nodemailer.createTransport({
   service: 'gmail',
@@ -25,8 +26,7 @@ class Controller{
 
     static postRegister (req,res) {
         const {username, password, email} = req.body
-        const input = {username, password, email}
-        console.log(">>>> ", input);
+        const input = {username, password,  email: validator.normalizeEmail(email)}
         User.create (input)
         .then (data => {
             const {username,email} =  data
