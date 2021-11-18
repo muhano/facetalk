@@ -22,7 +22,8 @@
 
     <%data.forEach (el => {%>
       <div class="card p-2 m-2 bg-success" style="width: 35rem;" >
-        <h5 class="card-title"><%=el.User.username%></h5>
+        <h4 class="card-title"><%=el.User.username%> </h4>
+        <p class="card-title"><%= postedTime(el.createdAt)%> </p>
         <img src="<%=el.imgUrl%>" class="card-img-top"  alt="Card image cap">
         <div class="card-body">
           <h5 class="card-title"><%=el.title%></h5>
@@ -30,9 +31,7 @@
           <p class="card-text"><%=el.Tag.name%></p>
         </div>
       </div>
-
       <%}%>
-  
     <%})%>
   </div>
 

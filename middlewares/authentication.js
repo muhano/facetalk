@@ -1,8 +1,10 @@
-const isLoginMiddleware = function (req, res, next)  {
-  if (req.session.isLogin) {
+function authentication (req, res, next)  {
+  if (req.session.userId) {
     next()
   } else {
     // redirect ke landing page
-    res.redirect('/products')
+    res.redirect('/')
   }
 }
+
+module.exports = authentication

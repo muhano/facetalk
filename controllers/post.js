@@ -10,8 +10,9 @@ class Controller{
         
     }
     static addPost(req, res){
+        const {userId} = req.session
         let {title, content, imgUrl, TagId} = req.body
-        let newPost = {title, content, imgUrl, TagId}
+        let newPost = {title, content, imgUrl, TagId, UserId: userId}
         Post.create(newPost)
             .then(data=> {
                 res.redirect('/home')

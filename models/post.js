@@ -1,4 +1,5 @@
 'use strict';
+const moment = require('moment')
 const {
   Model
 } = require('sequelize');
@@ -9,6 +10,11 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
+
+    static postedTime (date) {
+      return moment(date).startOf('hour').fromNow();      
+    }
+
     static associate(models) {
       // define association here
       Post.belongsTo(models.User, {foreignKey: 'UserId'}),
