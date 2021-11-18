@@ -9,7 +9,7 @@
 <body>
     <h1>Edit Post</h1>
 
-    <form action="/editpost/<%=data.id%>" method="post">
+    <form action="/post/editpost/<%=data.id%>" method="post">
         <input type="text" name='title' placeholder="input your post title here" value="<%= data.title %>">
         <label>Edit Title</label><br><br>
         <textarea name="content" cols="30" rows="10" placeholder="insert your post text here..."><%= data.content %></textarea><br><br>

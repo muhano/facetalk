@@ -15,7 +15,7 @@ class Controller{
         console.log(newPost);
         Post.create(newPost)
             .then(data=> {
-                res.redirect('/')
+                res.redirect('/home')
             })
             .catch(err=> res.send(err))
     }
@@ -43,7 +43,7 @@ class Controller{
         // console.log(postContent);
         Post.upsert(postContent)
             .then(data=> {
-                res.redirect('/')
+                res.redirect('/home')
             })
             .catch(err=> res.send (err))
     }
@@ -55,7 +55,7 @@ class Controller{
                 id : req.params.postId
             }
         })
-        res.redirect('/')
+        res.redirect('/home')
     }
 }
 
